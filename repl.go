@@ -5,13 +5,21 @@ import (
 	"fmt"
 	"strings"
 	"bufio"
+	"github.com/Tenlinks20/pokedex_cli/internal/pokeapi"
 )
+
+// Configuration
+type config struct {
+	pokeapiClient    pokeapi.Client
+	nextLocationsURL *string
+	prevLocationsURL *string
+}
 
 // Command registry
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -26,6 +34,16 @@ func getCommands() map[string]cliCommand {
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
+		"map": {
+			name: "map",
+			description: "Displays the names of 20 location areas in the Pokemon world",
+			callback: commandMap,
+		},
+		"mapb": {
+			name: "mapb",
+			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
+			callback: commandMapb,
+		},
 	}
 	
 }
@@ -35,7 +53,7 @@ func cleanInput(text string) []string {
     return strings.Fields(lowerText)
 }
 
-func interactiveMode() {
+func interactiveMode(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -60,7 +78,7 @@ func interactiveMode() {
 			continue
 		}
 		
-		err := command.callback()
+		err := command.callback(cfg)
 		if err != nil {
 			fmt.Println(err)
 		}
