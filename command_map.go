@@ -7,7 +7,7 @@ import (
 	"github.com/Tenlinks20/pokedex_cli/internal/pokeapi"
 )
 
-func commandMap(cfg *config) error {
+func commandMap(cfg *config, args ...string) error {
     keyPtr := cfg.nextLocationsURL
     if keyPtr == nil {
         url := "https://pokeapi.co/api/v2/location-area"
@@ -56,7 +56,7 @@ func commandMap(cfg *config) error {
     return nil
 }
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, args ...string) error {
     keyPtr := cfg.prevLocationsURL
 	if keyPtr == nil {
 		return errors.New("you're on the first page")

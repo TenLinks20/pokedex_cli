@@ -21,7 +21,7 @@ type config struct {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -45,6 +45,11 @@ func getCommands() map[string]cliCommand {
 			name: "mapb",
 			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
 			callback: commandMapb,
+		},
+		"explore": {
+			name: "explore",
+			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
+			callback: commandExplore,
 		},
 	}
 	
@@ -72,17 +77,22 @@ func interactiveMode(cfg *config) {
 		}
 
 		userCommand := words[0]
-		commands := getCommands()
-
-		command, ok := commands[userCommand]
+		command, ok := getCommands()[userCommand]
 		if !ok {
 			fmt.Println("Unknown Command")
 			continue
 		}
-		
-		err := command.callback(cfg)
-		if err != nil {
-			fmt.Println(err)
-		}
+
+		if len(words) == 1 {
+			err := command.callback(cfg)
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else if args := words[1:]; len(args) > 0 {		
+			err := command.callback(cfg, args...)
+			if err != nil {
+				fmt.Println(err)
+			}
+		} 
 	}
 }
