@@ -59,6 +59,11 @@ func getCommands() map[string]cliCommand {
 			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
 			callback: commandCatch,
 		},
+		"inspect": {
+			name: "inspect",
+			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
+			callback: commandInspect,
+		},
 	}
 	
 }

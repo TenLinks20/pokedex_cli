@@ -317,3 +317,20 @@ func (c *Client)GetPokemonInfoFromReq(name string) (PokemonInfo, error) {
 
 	return info, nil
 }
+
+func GetStats(info PokemonInfo) map[string]int {
+	stats := make(map[string]int)
+	for _, stat := range info.Stats {
+		stats[stat.Stat.Name] = stat.BaseStat
+	}
+
+	return stats
+}
+
+func GetTypes(info PokemonInfo) []string {
+	types := []string{}
+	for _, t := range info.Types {
+		types = append(types, t.Type.Name)
+	}
+	return types
+}
