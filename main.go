@@ -12,7 +12,7 @@ func main() {
 	cfg := &config{
 		pokeapiClient: pokeClient,
 		pokeCache: pokeCache,
-	
+		CaughtPokemon: make(map[string]pokeapi.PokemonInfo),
 	}
 
 	interactiveMode(cfg)

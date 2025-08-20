@@ -34,6 +34,7 @@ func (c *Client) GetPageFromReq(pageURL *string) (Page, error) {
 		return Page{}, fmt.Errorf("error getting res: %w", err)
 	}
 
+	defer res.Body.Close()
 	var page Page
 	decoder := json.NewDecoder(res.Body)
 	if err := decoder.Decode(&page); err != nil {

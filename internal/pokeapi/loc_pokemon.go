@@ -39,6 +39,7 @@ func (c *Client) GetLocPokemonFromReq(loc string) (LocPokemon, error) {
 		return  LocPokemon{}, err
 	}
 
+	defer res.Body.Close()
 	var area LocPokemon
 	decoder := json.NewDecoder(res.Body)
 	if err := decoder.Decode(&area); err != nil {

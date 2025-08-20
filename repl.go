@@ -15,6 +15,7 @@ type config struct {
 	nextLocationsURL *string
 	prevLocationsURL *string
 	pokeCache   *pokecache.Cache
+	CaughtPokemon map[string]pokeapi.PokemonInfo
 }
 
 // Command registry
@@ -23,6 +24,8 @@ type cliCommand struct {
 	description string
 	callback    func(*config, ...string) error
 }
+
+// 
 
 func getCommands() map[string]cliCommand {
 	return map[string]cliCommand{
@@ -50,6 +53,11 @@ func getCommands() map[string]cliCommand {
 			name: "explore",
 			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
 			callback: commandExplore,
+		},
+		"catch": {
+			name: "catch",
+			description: "(map back) Displays the names of  the previous 20 location areas in the Pokemon world",
+			callback: commandCatch,
 		},
 	}
 	
