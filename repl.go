@@ -6,6 +6,7 @@ import (
 	"strings"
 	"bufio"
 	"github.com/Tenlinks20/pokedex_cli/internal/pokeapi"
+	"github.com/Tenlinks20/pokedex_cli/internal/pokecache"
 )
 
 // Configuration
@@ -13,6 +14,7 @@ type config struct {
 	pokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
+	pokeCache   *pokecache.Cache
 }
 
 // Command registry

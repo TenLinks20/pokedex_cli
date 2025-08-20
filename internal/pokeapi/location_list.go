@@ -49,3 +49,10 @@ func GetLocations(page Page) []string {
 	}
 	return locations
 }
+func GetLocations2(page Page) []string {
+	var locations []string
+	for _, result := range page.Results {
+		locations = append(locations, result.Name)
+	}
+	return locations
+}
